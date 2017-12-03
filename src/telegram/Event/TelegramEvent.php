@@ -1,6 +1,8 @@
 <?php
 namespace telegram\Event;
 
+use pocketmine\event\Event;
+
 class TelegramEvent extends Event{
   private $userid;
   private $username;

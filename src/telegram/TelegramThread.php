@@ -1,6 +1,9 @@
 <?php
 namespace telegram;
 
+use pocketmine\utils\Utils;
+use telegram\Event\TelegramRecieveEvent;
+
 class TelegramThread extends Thread{
   private $lastinfo;
   public function start(){

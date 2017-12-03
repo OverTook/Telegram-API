@@ -1,6 +1,11 @@
 <?php
 namespace telegram;
 
+use pocketmine\plugin\PluginBase;
+use pocketmine\event\Listener;
+use pocketmine\utils\Utils;
+use telegram\Event\TelegramSendEvent;
+
 class TelegramAPI extends PluginBase implements Listener{
   private $tokens = [];
   public function onEnable(){
