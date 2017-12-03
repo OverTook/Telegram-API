@@ -8,10 +8,12 @@ use telegram\Event\TelegramSendEvent;
 
 class TelegramAPI extends PluginBase implements Listener{
   private $tokens = [];
+  public function onLoad(){
+    $thread = new TelegramThread();
+    $this->getServer()->getScheduler()->scheduleRepeatingTask($thread, 20);
+  }
   public function onEnable(){
     $this->getServer()->getPluginManager()->registerEvents($this, $this);
-    $thread = new TelegramThread();
-    $thread->start();
   }
   public static function SendMessage($userid, $msg, $token){
     Utils::getURL("https://api.telegram.org/bot" . $token ."/sendMessage?chat_id=".$userid."&text=".$msg);
@@ -22,6 +24,9 @@ class TelegramAPI extends PluginBase implements Listener{
   }
   public function getTokens() : array{
     return $this->tokens;
+  }
+  public function Event($userid, $username, $bottoken, $msg, $msid){
+    $this->getServer()->getPluginManager()->callEvent(new TelegramRecieveEvent($userid, $username, $bottoken, $msg, $msid));
   }
 }
  ?>
