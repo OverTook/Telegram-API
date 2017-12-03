@@ -4,8 +4,11 @@ namespace telegram;
 class TelegramThread extends Thread{
   private $lastinfo;
   public function start(){
+    $a = new TelegramAPI();
+    $lists = $a->getTokens();
     while(true){
-    $json;
+      for ($i=0; $i >=  count($lists); $i++) {
+    $json = Utils::getURL("https://api.telegram.org/bot" . $lists[$i] ."/getUpdates");
     $json = json_decode($json, true);
     $json = json_decode($json['result'], true);
     $json2 = json_decode($json[count($json) - 1] ['message'], true);
@@ -15,6 +18,8 @@ class TelegramThread extends Thread{
     $userid = $from['id'];
     $username = $from['username'];
     $msg = $json2['text'];
+    $a->getServer()->getPluginManager()->callEvent(new TelegramRecieveEvent($userid, $username, $bottoken, $msg, $msid));
+  }
   }
 }
 }
