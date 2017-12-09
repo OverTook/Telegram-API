@@ -1,10 +1,12 @@
-<?php
+ <?php
 namespace telegram\Event;
 
 class TelegramRecieveEvent extends TelegramEvent{
   private $msg;
   private $msgid;
   private $username;
+  
+  public static $handlerList = null;
 
   public function __construct($userid, $username, $bottoken, $msg, $msgid){
     parent::__construct($userid, $bottoken);
